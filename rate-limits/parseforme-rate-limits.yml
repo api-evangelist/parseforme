@@ -1,0 +1,41 @@
+generated: '2026-09-03'
+method: searched
+source: https://parseforme.com/developers
+limit_count: 5
+limits:
+  - scope: per-key
+    window: 60s
+    limit: 60
+    description: 60 requests a minute per API key (limits are per key, not per workspace, so one integration cannot exhaust another).
+  - scope: per-key
+    window: 60s
+    limit: 10
+    description: Of the 60/min, at most 10 may create documents (POST /v1/documents).
+  - scope: per-key
+    window: 86400s
+    limit: 500
+    description: 500 document creations a day per key. The 429 Retry-After for the daily cap is capped at an hour.
+  - scope: per-workspace
+    window: 60s
+    limit: 5
+    description: Webhook test deliveries (POST /v1/webhooks/{id}/test) - 5 a minute for the whole workspace.
+  - scope: per-key
+    window: trailing 24h
+    limit: 2000
+    unit: OCR pages
+    description: >-
+      A non-HTTP ceiling: 2,000 pages through OCR in any trailing 24 hours, clearing as oldest pages age
+      out. Past it the upload is accepted but the parse is refused before tokens are held; the document
+      ends failed with a failureReason naming the page limit, and a document.failed webhook IS sent for
+      API-started parses.
+headers:
+  - RateLimit
+  - RateLimit-Policy
+  - Retry-After
+headers_note: >-
+  IETF draft RateLimit / RateLimit-Policy fields; there are no X-RateLimit-* headers. RateLimit-Policy
+  reports the breached window (w=60 or w=86400) and q= is the limit that applied - read the number from
+  the header rather than hard-coding.
+exhaustion_status: 429
+exhaustion_codes: [RATE_LIMITED, API_KEY_DAILY_CAP]
+upload_backpressure: '503 UPLOAD_BUSY with Retry-After: 5 when too many uploads are in flight.'

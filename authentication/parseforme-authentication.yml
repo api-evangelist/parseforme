@@ -1,0 +1,32 @@
+generated: '2026-09-03'
+method: searched
+source: openapi/parseforme-openapi-original.json
+docs: https://parseforme.com/developers
+summary:
+  types:
+  - http
+schemes:
+- name: bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: A `pfm_live_…` workspace key
+  sources:
+  - openapi/parseforme-openapi-original.json
+details:
+  credential: "workspace API key sent as Authorization: Bearer pfm_live_..."
+  key_format: 'pfm_live_ + 43 base64url characters - 52 chars carrying 256 bits of entropy'
+  scanning_regex: '\bpfm_live_[A-Za-z0-9_-]{43}\b'
+  scanning_note: The shape is fixed and published so consumers can add it to their own secret scanning.
+  issuance: Created in the dashboard under Settings -> API keys by an owner or admin, shown once.
+  revocation: Revocable at any time; takes effect immediately.
+  limits: Up to 10 active keys per workspace.
+  scope: >-
+    A key acts as a member of one workspace - it can create, read and export documents and manage webhook
+    endpoints; it can never manage members, billing or other keys. Keys work only on /v1/*.
+  failure_mode: >-
+    Every authentication failure returns the same opaque 401 whatever was wrong with the key - a response
+    distinguishing "unknown" from "revoked" would be a probing oracle.
+  note: >-
+    The OpenAPI's bearerFormat says JWT but the credential is an opaque pfm_live_ workspace key, not a
+    JWT - the docs are authoritative here.

@@ -1,0 +1,65 @@
+generated: '2026-09-03'
+method: searched
+source: https://parseforme.com/developers
+authentication:
+  style: bearer-api-key
+  header: 'Authorization: Bearer pfm_live_...'
+  key_format: 'pfm_live_ + 43 base64url characters (52 chars, 256 bits); published scanning regex \bpfm_live_[A-Za-z0-9_-]{43}\b'
+  scope: >-
+    A key acts as a member of one workspace - it can create/read/export documents and manage webhook
+    endpoints, never members, billing or other keys. Up to 10 active keys per workspace; revocation
+    is immediate. All auth failures are the same opaque 401 (anti-probing).
+  see: authentication/parseforme-authentication.yml
+idempotency:
+  supported: true
+  header: Idempotency-Key
+  format: '^[A-Za-z0-9_\-:.]{1,128}$'
+  scope: POST /v1/documents (V1DocumentsController_create)
+  retention: >-
+    The key is stored durably WITH the document, not in a cache, so the replay guarantee survives a
+    restart. A replay returns the ORIGINAL document instead of buying a second parse.
+pagination:
+  style: window
+  params: [status, kind, since, limit]
+  limit: 1-100, default 20
+  response_field: items
+  note: >-
+    No cursor field - the response is items and nothing else. Page with limit and move the window with
+    since (filters createdAt, deliberately the same column the list orders by, so nothing slips behind
+    a watermark). Deduplicate on id; keep the window wide enough to cover a slow parse.
+inline_wait:
+  param: wait=1..25
+  note: POST /v1/documents?wait=25 holds up to 25s for a terminal status; fall back to webhook/polling.
+request_tracing:
+  header: X-Request-Id
+  note: Returned on every response, success or error, and echoed as error.requestId.
+versioning:
+  scheme: uri-path (v1)
+error_envelope:
+  shape: '{ "error": { "code", "message", "requestId" } }'
+  see: errors/parseforme-problem-types.yml
+rate_limit_signaling:
+  headers: [Retry-After, RateLimit, RateLimit-Policy]
+  note: >-
+    IETF RateLimit / RateLimit-Policy fields, no X-RateLimit-* headers. RateLimit-Policy reports the
+    breached window (w=60 per-minute, w=86400 daily) and q= is the applied limit - read the number from
+    the header rather than hard-coding. See rate-limits/parseforme-rate-limits.yml.
+reversibility:
+  - surface: document parse (POST /v1/documents)
+    reversal: none
+    grade: none
+    note: >-
+      Parsing spends tokens per page and no cancel/delete/refund operation exists on documents; the 402
+      is the floor, not a warning. Idempotency-Key is the only protection against double-spend.
+  - surface: webhook registration (POST /v1/webhooks)
+    reversal: DELETE /v1/webhooks/{id}
+    operationId: V1WebhooksController_remove
+    window: immediate, any time - "deliveries stop immediately" (204)
+    grade: verified
+    docs: https://parseforme.com/developers
+  - surface: webhook secret rotation (POST /v1/webhooks/{id}/rotate)
+    reversal: none, but graded rollover
+    operationId: V1WebhooksController_rotate
+    window: the previous secret keeps signing for 24 hours (previousSecretExpiresAt); deliveries carry both v1 entries
+    grade: verified
+    docs: https://parseforme.com/developers

@@ -1,0 +1,52 @@
+generated: '2026-09-03'
+method: derived
+status: candidate
+source: openapi/parseforme-openapi-original.json
+note: >-
+  ParseForMe ships no MCP server — none is mentioned in the docs, llms.txt or apis.json, and the
+  well-known/OAuth discovery surface is absent. This is a candidate tool list derived from the 12
+  OpenAPI operations. Nobody serves these tools today.
+deployment:
+  mode: none
+  auth: api-key
+  verified: derived
+server:
+  name: parseforme
+  transport: null
+tools:
+  - name: get_workspace
+    description: The calling key's workspace, label and token balance
+    source_operation: openapi/parseforme-openapi-original.json#V1MeController_me
+  - name: create_document
+    description: Upload a document (multipart file or JSON sourceUrl) and start parsing it
+    source_operation: openapi/parseforme-openapi-original.json#V1DocumentsController_create
+  - name: list_documents
+    description: The workspace's documents, newest first
+    source_operation: openapi/parseforme-openapi-original.json#V1DocumentsController_list
+  - name: get_document
+    description: One document, with its extracted fields once it has parsed
+    source_operation: openapi/parseforme-openapi-original.json#V1DocumentsController_get
+  - name: export_document
+    description: Export one document as CSV, XLSX or QBO via a short-lived download URL
+    source_operation: openapi/parseforme-openapi-original.json#V1DocumentsController_exportOne
+  - name: list_document_types
+    description: Every document type and the fields its extraction produces
+    source_operation: openapi/parseforme-openapi-original.json#V1CatalogController_documentTypes
+  - name: get_meta
+    description: Integration facts - webhook egress addresses to allowlist
+    source_operation: openapi/parseforme-openapi-original.json#V1CatalogController_meta
+  - name: create_webhook
+    description: Register a webhook endpoint (returns the signing secret once)
+    source_operation: openapi/parseforme-openapi-original.json#V1WebhooksController_create
+  - name: list_webhooks
+    description: Webhook endpoints in this workspace
+    source_operation: openapi/parseforme-openapi-original.json#V1WebhooksController_list
+  - name: delete_webhook
+    description: Delete a webhook endpoint - deliveries stop immediately
+    source_operation: openapi/parseforme-openapi-original.json#V1WebhooksController_remove
+  - name: rotate_webhook_secret
+    description: Issue a new signing secret (old one valid 24 hours)
+    source_operation: openapi/parseforme-openapi-original.json#V1WebhooksController_rotate
+  - name: test_webhook
+    description: Send a synthetic document.parsed event to an endpoint
+    source_operation: openapi/parseforme-openapi-original.json#V1WebhooksController_test

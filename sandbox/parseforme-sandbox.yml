@@ -1,0 +1,21 @@
+generated: '2026-09-03'
+method: searched
+source: https://parseforme.com/developers
+note: >-
+  ParseForMe publishes no separate sandbox environment or test mode - keys carry only the pfm_live_
+  prefix and parses always spend real token balance (new accounts get 30 free tokens). What it does
+  publish is webhook fixture tooling, captured below.
+test_mode: none
+free_credits: 30 tokens on signup (1 token ~ 1 page)
+fixtures:
+  - name: webhook test event
+    operation: openapi/parseforme-openapi-original.json#V1WebhooksController_test
+    description: >-
+      POST /v1/webhooks/{id}/test sends one synthetic document.parsed, signed and delivered exactly like
+      a real event. It carries test: true inside the signed body and the nil UUID
+      (00000000-0000-0000-0000-000000000000) as its document id, so a receiver can filter it without
+      pattern-matching. A refusal is a successful test, not an error; tests never count toward the
+      50-failure disable; 5 per minute per workspace.
+connection_test:
+  operation: openapi/parseforme-openapi-original.json#V1MeController_me
+  description: GET /v1/me is the documented connection test - who the key belongs to, and the token balance.

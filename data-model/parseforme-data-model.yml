@@ -1,0 +1,40 @@
+generated: '2026-09-03'
+method: derived
+source: openapi/parseforme-openapi-original.json + https://parseforme.com/developers
+note: >-
+  The spec publishes no components.schemas; entities and relationships are derived from the documented
+  response objects on the developers reference.
+entities:
+  - name: Workspace
+    description: The account scope an API key acts inside. Holds the token balance.
+    fields: [workspaceId, workspaceName, balance]
+  - name: ApiKey
+    description: >-
+      Workspace-scoped bearer credential (pfm_live_ + 43 base64url chars, 256 bits). Up to 10 active per
+      workspace; can never manage members, billing or other keys.
+  - name: Document
+    description: One uploaded document and its parse state/result.
+    fields: [id, status, kind, detectedKind, pages, filename, failureReason, createdAt, result]
+    statuses: [uploaded, ingesting, ready, queued, processing, parsed, failed, rejected, infected]
+  - name: DocumentType
+    description: >-
+      One of nine kinds (resume, invoice, bank_statement, receipt, purchase_order, shipping_doc,
+      utility_bill, payslip, generic) with a fixed schemaVersion and dotted field paths; lineItemPath
+      names the array a row-per-line export explodes.
+    fields: [kind, schemaVersion, fields, lineItemPath]
+  - name: ParseResult
+    description: Present once status is parsed; fields and confidence are parallel maps keyed by dotted paths.
+    fields: [schemaVersion, fields, confidence]
+  - name: Webhook
+    description: HTTPS endpoint receiving document.parsed / document.failed, HMAC-SHA256 signed.
+    fields: [id, url, events, includeResult, secretHint, authHeaderName, consecutiveFailures, disabledAt, createdAt]
+  - name: Template
+    description: A saved export column layout; referenced by export via templateId (required for format=qbo).
+relationships:
+  - {from: Workspace, to: Document, type: has_many}
+  - {from: Workspace, to: ApiKey, type: has_many, note: up to 10 active keys}
+  - {from: Workspace, to: Webhook, type: has_many, note: up to 10 endpoints}
+  - {from: Document, to: Workspace, type: belongs_to}
+  - {from: Document, to: DocumentType, type: belongs_to, via: kind}
+  - {from: Document, to: ParseResult, type: has_one, via: result}
+  - {from: Document, to: Template, type: references, via: export templateId}

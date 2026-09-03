@@ -1,0 +1,83 @@
+{
+  "specificationVersion": "0.21",
+  "aid": "parseforme",
+  "name": "ParseForMe",
+  "description": "ParseForMe turns documents into structured data. Upload a PDF, scan or photo — invoice, bank statement, receipt, resume, purchase order, shipping document, utility bill or payslip — and get back typed fields, each carrying a confidence score so review goes only to what is uncertain. Export to Excel, CSV, JSON or Google Sheets in your own column layout, or drive the whole thing from the REST API.",
+  "image": "https://parseforme.com/opengraph-image.png",
+  "url": "https://parseforme.com/apis.json",
+  "created": "2026/09/03",
+  "modified": "2026/09/03",
+  "tags": [
+    "Document Parsing",
+    "OCR",
+    "Data Extraction",
+    "Document AI",
+    "Invoices",
+    "Bank Statements",
+    "Receipts",
+    "Resumes",
+    "PDF"
+  ],
+  "apis": [
+    {
+      "aid": "parseforme:api",
+      "name": "ParseForMe API",
+      "description": "Send a document, get structured fields back. One POST creates a document; the fields return typed, each with a confidence score, and can be exported in your own spreadsheet layout. Webhooks fire when a parse finishes. Authenticate with a workspace API key as a bearer token. Same token cost as the browser app — 1 token is roughly one page.",
+      "image": "https://parseforme.com/parse-for-me-logo.png",
+      "humanURL": "https://parseforme.com/developers",
+      "baseURL": "https://api.parseforme.com/v1",
+      "tags": [
+        "Document Parsing",
+        "OCR",
+        "Data Extraction",
+        "Document AI",
+        "Webhooks",
+        "REST"
+      ],
+      "properties": [
+        {
+          "type": "OpenAPI",
+          "url": "https://api.parseforme.com/v1/openapi.json"
+        },
+        {
+          "type": "Documentation",
+          "url": "https://parseforme.com/developers"
+        },
+        {
+          "type": "Pricing",
+          "url": "https://parseforme.com/pricing"
+        },
+        {
+          "type": "SignUp",
+          "url": "https://parseforme.com/app"
+        },
+        {
+          "type": "TermsOfService",
+          "url": "https://parseforme.com/legal/terms"
+        },
+        {
+          "type": "PrivacyPolicy",
+          "url": "https://parseforme.com/legal/privacy"
+        },
+        {
+          "type": "Blog",
+          "url": "https://parseforme.com/blog"
+        }
+      ],
+      "contact": [
+        {
+          "FN": "ParseForMe Support",
+          "email": "support@parseforme.com",
+          "url": "https://parseforme.com/contact"
+        }
+      ]
+    }
+  ],
+  "maintainers": [
+    {
+      "FN": "AutonomyXAI",
+      "email": "support@parseforme.com",
+      "url": "https://parseforme.com"
+    }
+  ]
+}

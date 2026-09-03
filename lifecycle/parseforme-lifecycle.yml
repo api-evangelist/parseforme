@@ -1,0 +1,21 @@
+generated: '2026-09-03'
+method: searched
+source: https://parseforme.com/developers
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://parseforme.com/developers
+  note: All endpoints live under /v1; API keys work only on /v1/*. Site footer marks the product v1.0.
+deprecation:
+  policy_url: null
+  sunset_header: null
+  note: No published deprecation policy or Sunset-header support found (2026-09-03).
+sla:
+  url: null
+  note: No published SLA.
+status_page: null
+status_page_note: 'No status page found: status.parseforme.com does not resolve, /changelog 404s (probed 2026-09-03).'
+webhook_secret_rotation:
+  operation: openapi/parseforme-openapi-original.json#V1WebhooksController_rotate
+  grace: The previous secret keeps signing for 24 hours (previousSecretExpiresAt); deliveries carry both v1 signature entries in that window.
+deprecated_operations: []

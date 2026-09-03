@@ -1,0 +1,78 @@
+generated: '2026-09-03'
+method: searched
+note: >-
+  Probed the closed well-known path list on both hosts. Two real hits, both on parseforme.com: a valid
+  APIs.json at the domain root (specificationVersion 0.21, parses, saved verbatim) and llms.txt (saved to
+  llms/). robots.txt carries an express Content-Signal grant (search=yes,ai-input=yes,ai-train=yes,use=full).
+  Negative controls on parseforme.com returned 404, so the 200s are genuine documents, not a catch-all.
+path_echo_control: passed
+hosts:
+  - host: https://parseforme.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 200
+        file: parseforme-apis.json
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 200
+        file: ../llms/parseforme-llms.txt
+      - path: /robots.txt
+        status: 200
+        note: 'Content-Signal: search=yes,ai-input=yes,ai-train=yes,use=full (express AI usage grant)'
+  - host: https://api.parseforme.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 404
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404

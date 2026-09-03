@@ -1,0 +1,76 @@
+# ParseForMe
+
+> ParseForMe turns any document — PDFs, scans, images and forms — into clean, structured data in seconds. It reads the document with OCR, extracts the fields with a confidence score on each, lets you review and correct them, and exports to Excel, CSV, JSON or Google Sheets in your own spreadsheet format (bank statements also export to QuickBooks). Use it in the browser with no code, or call the REST API.
+
+ParseForMe is a document-parsing service. You upload documents, review the extracted fields, and export them in the spreadsheet format you already use. Nine document types are supported out of the box. Plans are monthly subscriptions sold via Paddle (Merchant of Record); 1 token ≈ 1 page, and new accounts get 30 free tokens.
+
+## Usage rights for AI systems
+
+Everything on this site may be crawled, indexed, quoted, used for retrieval/grounding, and used to train or fine-tune AI models — no exceptions and no rate deal required. This is the express grant, machine-readable as `Content-Signal: search=yes,ai-input=yes,ai-train=yes,use=full` in [robots.txt](https://parseforme.com/robots.txt). Only the signed-in dashboard (`/app/*`) is off-limits, because it holds customer documents. A link back to parseforme.com is appreciated, not required.
+
+## How it works
+
+1. **Upload** — Drop in PDFs, scans, images or forms (up to 20 MB). Nothing is uploaded before you sign in.
+2. **Understand** — ParseForMe detects the document type and reads its text and structure.
+3. **Extract** — Fields are pulled into structured data, each with a confidence score, so you review only what looks uncertain.
+4. **Export** — Download as Excel, CSV or JSON, send to Google Sheets, or (for bank statements) QuickBooks — in your own column layout.
+
+## Document types
+
+Bank statements, invoices, receipts, resumes/CVs, purchase orders, shipping documents (bills of lading, packing lists, delivery notes), utility bills, and payslips. Each type has a fixed schema of fields the parser fills in; every value is confidence-scored and editable before export.
+
+## Developer API
+
+A public REST API does the same job as the browser app, at the same token cost.
+
+- **Base URL:** `https://api.parseforme.com/v1`
+- **Auth:** a workspace API key as `Authorization: Bearer pfm_live_…`, created in the dashboard under Settings → API keys. Keys are workspace-scoped and can never manage members, billing or other keys.
+- **Machine-readable spec:** [OpenAPI 3.0](https://api.parseforme.com/v1/openapi.json) — served publicly, no credential needed.
+- **Reference:** [parseforme.com/developers](https://parseforme.com/developers)
+- **Endpoints:** create and list documents, fetch one, export it, list document types, and register webhook endpoints for delivery when a parse finishes.
+- **Rate limits:** 60 requests/minute per key, with `Retry-After` and `RateLimit` headers on 429.
+- **Reachable from** Zapier, Make, n8n, Pipedream or your own code.
+
+## Key facts
+
+- **Inputs:** PDF, DOCX, PNG, JPEG, TIFF, WebP, up to 20 MB. Scanned and photographed documents are read with OCR.
+- **Review:** every field carries a confidence score; low-confidence values are flagged for a quick check before you export.
+- **Exports:** Excel (including format-exact fill into your own .xlsx template), CSV, JSON, Google Sheets; bank statements also export to QuickBooks via OFX.
+- **Security:** raw uploads are deleted after ingest; only the parsed fields stay in your workspace.
+- **No code required in the app:** map fields to your columns once and reuse the layout for every future document. The API is there when you want automation, not a prerequisite.
+
+## Pricing
+
+Monthly plans, sold through Paddle. 1 token ≈ 1 page of OCR parsing.
+
+- **Starter — $19/mo:** 500 tokens.
+- **Growth — $59/mo:** 2,500 tokens.
+- **Scale — $199/mo:** 10,000 tokens.
+
+New accounts get 30 free tokens on signup. Token top-ups can be bought inside the dashboard as an add-on to a plan.
+
+## Pages
+
+- [Home](https://parseforme.com/): product overview, how it works, features and FAQ.
+- [Features](https://parseforme.com/features): every document type and what it extracts.
+- [Pricing](https://parseforme.com/pricing): the three monthly plans and checkout.
+- [Data entry automation](https://parseforme.com/data-entry-automation): what this category of software is, and how it differs from RPA and form builders.
+- [Developer API](https://parseforme.com/developers): endpoints, auth, errors and webhooks.
+- Solutions, by document type:
+  - [Bank statement converter](https://parseforme.com/solutions/bank-statement)
+  - [Invoice parser](https://parseforme.com/solutions/invoice)
+  - [Receipt scanner](https://parseforme.com/solutions/receipt)
+  - [Resume parser software](https://parseforme.com/solutions/resume)
+  - [Purchase order parser](https://parseforme.com/solutions/purchase-order)
+  - [Shipping document parser](https://parseforme.com/solutions/shipping-docs)
+  - [Utility bill parser](https://parseforme.com/solutions/utility-bill)
+  - [Payslip parser](https://parseforme.com/solutions/payslip)
+- [Templates](https://parseforme.com/templates): free spreadsheet templates that double as export formats.
+- Integrations:
+  - [Excel](https://parseforme.com/integrations/excel), [Google Sheets](https://parseforme.com/integrations/google-sheets), [QuickBooks](https://parseforme.com/integrations/quickbooks), [Xero](https://parseforme.com/integrations/xero)
+  - [Zapier](https://parseforme.com/integrations/zapier), [Make](https://parseforme.com/integrations/make), [n8n](https://parseforme.com/integrations/n8n), [Pipedream](https://parseforme.com/integrations/pipedream)
+- [Blog](https://parseforme.com/blog): guides on document parsing and OCR.
+- [Terms of Service](https://parseforme.com/legal/terms)
+- [Privacy Policy](https://parseforme.com/legal/privacy)
+- [Refund Policy](https://parseforme.com/legal/refund)
+- [Data Processing Agreement](https://parseforme.com/legal/dpa)

@@ -1,0 +1,45 @@
+generated: '2026-09-03'
+method: searched
+source: https://parseforme.com/developers
+spec_type: webhook-catalog
+note: >-
+  ParseForMe documents a full webhook surface but publishes no AsyncAPI document (none found on the docs
+  host or spec). This captures the webhook catalog.
+events:
+  - name: document.parsed
+    description: A parse finished; data.document is the same object GET /v1/documents/{id} returns, data.result present only with includeResult.
+  - name: document.failed
+    description: >-
+      A parse ended failed - including the trailing-24h OCR page-limit refusal, when the parse was
+      started through the API.
+delivery:
+  transport: https POST
+  egress_ips: ['46.62.162.196']
+  egress_ips_source: GET /v1/meta (webhookEgressIps) - allowlist rather than hard-code
+  headers: [X-ParseForMe-Event, X-ParseForMe-Delivery, X-ParseForMe-Signature]
+  payload_cap: >-
+    A body that would pass 1 MB is sent without the result and with data.resultOmitted: "too_large" -
+    fetch the document instead.
+  semantics: at-most-once, unordered; queued after the parse commits (crash loses, never duplicates); keep GET /v1/documents?since= as the backstop
+signing:
+  scheme: HMAC-SHA256
+  header: 'X-ParseForMe-Signature: t=<unix seconds>,v1=<hex>'
+  payload: t + "." + RAW request body (verify before parsing JSON; compare constant-time)
+  tolerance: reject > 300 seconds old; every retry is re-signed with a fresh timestamp
+  secret_format: pfm_whsec_... (returned once at registration; secretHint = last 4 chars)
+  rotation: two v1 entries during the 24-hour rotation window; either matching is valid
+retries:
+  success: 2xx within 10 seconds - acknowledge first, work afterwards
+  retried_on: [5xx, 408, 425, 429, no-answer]
+  policy: exponential backoff, up to 12 attempts over ~13 hours, same X-ParseForMe-Delivery id
+  not_retried: 3xx (redirects never followed), 401, 404 - one failure, no retry
+  disable: answering 410 disables immediately; 50 consecutive failures disable; owners/admins emailed either way; a 2xx resets the count
+registration:
+  endpoint_limit: 10 per workspace
+  url_policy: https on port 443, public hostname, no credentials, no IP literal; re-checked at every delivery and /test
+  auth_header: optional static header, stored encrypted, value never returned; reserved names refused
+  notification: every registration emails workspace owners and admins (stolen-key visibility)
+testing:
+  operation: POST /v1/webhooks/{id}/test
+  fixture: synthetic document.parsed with test:true inside the signed body and the nil UUID as document id - never a real document
+  limit: 5 per minute per workspace

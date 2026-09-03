@@ -1,0 +1,27 @@
+generated: '2026-09-03'
+method: searched
+source: https://parseforme.com/pricing
+plan_count: 3
+billing: Monthly subscriptions sold via Paddle (Merchant of Record - checkout, tax, invoicing). 1 token is roughly one page of OCR parsing. New accounts get 30 free tokens on signup; token top-ups sold in-dashboard as a plan add-on.
+plans:
+  - name: Starter
+    price: 19
+    currency: USD
+    period: month
+    included: 500 tokens
+    features: [JSON/CSV/XLSX export, field-level confidence scoring, 10 field maps, email support]
+    limits: 'No connectors & webhooks, no usage analytics & API access (per the pricing compare table).'
+  - name: Growth
+    price: 59
+    currency: USD
+    period: month
+    included: 2,500 tokens
+    features: [JSON/CSV/XLSX export, field-level confidence scoring, 50 field maps, connectors & webhooks]
+    limits: 'No usage analytics & API access, no SSO & audit logs (per the pricing compare table).'
+  - name: Scale
+    price: 199
+    currency: USD
+    period: month
+    included: 10,000 tokens
+    features: [JSON/CSV/XLSX export, field-level confidence scoring, unlimited field maps, connectors & webhooks, usage analytics & API access, SSO & audit logs]
+overage: Token top-ups purchasable inside the dashboard; the API answers 402 INSUFFICIENT_BALANCE at zero balance.

@@ -1,0 +1,48 @@
+generated: '2026-09-03'
+method: derived
+source: openapi/parseforme-openapi-original.json + https://parseforme.com/developers
+standards:
+  - id: idempotency
+    conforms: true
+    evidence: >-
+      Idempotency-Key header on POST /v1/documents (in the OpenAPI, V1DocumentsController_create):
+      "Retry-safe token, stored durably. A replay returns the ORIGINAL document instead of buying a
+      second parse."
+  - id: ratelimit-headers-ietf
+    conforms: true
+    evidence: >-
+      429 responses carry the IETF RateLimit and RateLimit-Policy fields (draft-ietf-httpapi-ratelimit-headers)
+      plus Retry-After, declared in the OpenAPI info.description and the docs Limits section; explicitly no
+      X-RateLimit-* headers.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: 'Errors use a custom envelope { error: { code, message, requestId } }, not application/problem+json.'
+  - id: oauth2
+    conforms: false
+    evidence: Single http bearer scheme (workspace API key); no oauth2 securitySchemes, no OAuth discovery documents (both 404).
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration 404 on both hosts.
+  - id: pagination
+    conforms: true
+    evidence: Documented window pagination on GET /v1/documents (status/kind/since/limit, items response, since watermark semantics).
+  - id: hmac-signed-webhooks
+    conforms: true
+    evidence: >-
+      X-ParseForMe-Signature: t=<ts>,v1=<hex HMAC-SHA256 over t + "." + raw body>, 300s tolerance,
+      dual-entry secret rotation - the Stripe-style signing convention.
+  - id: content-signal
+    conforms: true
+    evidence: >-
+      robots.txt on parseforme.com carries "Content-Signal: search=yes,ai-input=yes,ai-train=yes,use=full"
+      for all user agents, with the grant restated in llms.txt.
+  - id: apis-json
+    conforms: true
+    evidence: A valid APIs.json (specificationVersion 0.21) served at https://parseforme.com/apis.json.
+domain_standards:
+  - id: ofx-qbo-export
+    conforms: true
+    evidence: >-
+      The export contract declares format=qbo on GET /v1/documents/{id}/export (V1DocumentsController_exportOne;
+      docs: "bank statements also export to QuickBooks via OFX", format=qbo requires a templateId else 400
+      QBO_NEEDS_TEMPLATE) - the accounting-interchange standard for its bank-statement-conversion market.

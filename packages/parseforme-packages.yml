@@ -1,0 +1,15 @@
+generated: '2026-09-03'
+method: searched
+note: >-
+  No first-party client libraries exist. npm registry search for "parseforme" returns zero results and
+  pypi.org/pypi/parseforme/json returns 404 (both checked 2026-09-03). The developer docs ship no SDKs by
+  design — the API is positioned for Zapier, Make, n8n, Pipedream or plain HTTP ("Reachable from Zapier,
+  Make, n8n, Pipedream or your own code"), with curl examples only.
+packages: []
+registries_checked:
+  - registry: npm
+    query: https://registry.npmjs.org/-/v1/search?text=parseforme&size=5
+    result: 0 results
+  - registry: pypi
+    query: https://pypi.org/pypi/parseforme/json
+    result: 404

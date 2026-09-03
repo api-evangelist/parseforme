@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ParseForMe API
+  version: 1.0.0
+extends: openapi/parseforme-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist:
+        slug: parseforme
+        profiled: '2026-09-03'
+        artifacts:
+          conventions: conventions/parseforme-conventions.yml
+          errors: errors/parseforme-problem-types.yml
+          webhooks: asyncapi/parseforme-webhooks.yml
+          rate-limits: rate-limits/parseforme-rate-limits.yml
+  - target: $.info
+    update:
+      x-idempotency:
+        header: Idempotency-Key
+        scope: POST /v1/documents
+        retention: durable, stored with the document
+  - target: $.paths['/v1/documents'].post
+    update:
+      x-reversibility: none - parsing spends tokens per page and cannot be undone; use Idempotency-Key to prevent double-spend
+  - target: $.paths['/v1/webhooks'].post
+    update:
+      x-reversibility: DELETE /v1/webhooks/{id} stops deliveries immediately
