@@ -1,0 +1,55 @@
+name: ParseForMe
+description: >-
+  A document-parsing / intelligent-document-processing service that converts PDFs, scans and photos (invoices, bank
+  statements, receipts, resumes, purchase orders, shipping docs, utility bills, payslips) into typed, confidence-scored
+  fields, exportable to JSON/CSV/XLSX/Google Sheets or driven via REST.
+url: https://raw.githubusercontent.com/api-evangelist/parseforme/refs/heads/main/apis.yml
+created: '2026-09-03'
+modified: '2026-09-03'
+specificationVersion: '0.21'
+tags:
+  - Document Parsing
+  - OCR
+  - Data Extraction
+  - Document AI
+  - IDP
+  - Invoices
+  - Bank Statements
+  - Receipts
+  - Resumes
+  - PDF
+  - Webhooks
+  - REST
+apis:
+  - name: ParseForMe API
+    description: >-
+      Document parsing REST API that converts documents into structured, confidence-scored fields, with exports and
+      HMAC-signed webhooks. Bearer-token (pfm_live_ workspace key) auth.
+    humanURL: https://parseforme.com/developers
+    baseURL: https://api.parseforme.com/v1
+    tags:
+      - Document Parsing
+      - OCR
+      - Data Extraction
+      - Document AI
+      - IDP
+      - Invoices
+      - Bank Statements
+      - Receipts
+      - Resumes
+      - PDF
+      - Webhooks
+      - REST
+    properties:
+      - type: OpenAPI
+        url: https://api.parseforme.com/v1/openapi.json
+      - type: Documentation
+        url: https://parseforme.com/developers
+maintainers:
+  - FN: AutonomyXAI
+    url: https://parseforme.com
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 95
+  at: '2026-09-03T12:03:31.952Z'
