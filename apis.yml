@@ -18,31 +18,46 @@ tags:
 - Receipts
 - Resumes
 - PDF
+- Webhook
+- REST
+tags_raw:
+- Document Parsing
+- OCR
+- Data Extraction
+- Document AI
+- IDP
+- Invoices
+- Bank Statements
+- Receipts
+- Resumes
+- PDF
 - Webhooks
 - REST
 apis:
-- name: ParseForMe API
-  description: >-
-    Document parsing REST API that converts documents into structured, confidence-scored fields, with exports and HMAC-signed
-    webhooks. Bearer-token (pfm_live_ workspace key) auth.
+- aid: parseforme:parseforme-v1-api
+  name: ParseForMe V1 API
+  description: The v1 API from ParseForMe — 6 operation(s) for v1.
   humanURL: https://parseforme.com/developers
   baseURL: https://api.parseforme.com/v1
   tags:
-  - Document Parsing
-  - OCR
-  - Data Extraction
-  - Document AI
-  - IDP
-  - Invoices
-  - Bank Statements
-  - Receipts
-  - Resumes
-  - PDF
-  - Webhooks
-  - REST
+  - v1
   properties:
   - type: OpenAPI
-    url: https://api.parseforme.com/v1/openapi.json
+    url: openapi/parseforme-v1-api-openapi.yml
+  - type: Documentation
+    url: https://parseforme.com/developers
+  - type: APIReference
+    url: https://parseforme.com/developers
+- aid: parseforme:parseforme-webhooks-api
+  name: ParseForMe Webhooks API
+  description: The webhooks API from ParseForMe — 4 operation(s) for webhooks.
+  humanURL: https://parseforme.com/developers
+  baseURL: https://api.parseforme.com/v1
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/parseforme-webhooks-api-openapi.yml
   - type: Documentation
     url: https://parseforme.com/developers
   - type: APIReference
