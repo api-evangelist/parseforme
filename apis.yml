@@ -16,7 +16,7 @@ tags:
 - Invoices
 - Bank Statements
 - Receipts
-- Resumes
+- Resume
 - PDF
 - Webhook
 - REST
@@ -54,6 +54,8 @@ apis:
   humanURL: https://parseforme.com/developers
   baseURL: https://api.parseforme.com/v1
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI
