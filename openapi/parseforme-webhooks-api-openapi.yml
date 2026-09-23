@@ -1,0 +1,122 @@
+openapi: 3.2.0
+info:
+  title: ParseForMe Webhooks API
+  description: 'Upload a document, get structured data back. Authenticate with a workspace API key as `Authorization: Bearer pfm_live_…`. Rate limits are per API key: 60 requests/minute, 10 document creations/minute and 500/day. Over a limit the API answers 429 with `Retry-After` and the `RateLimit` / `RateLimit-Policy` fields — honour them. Webhook deliveries and `sourceUrl` fetches originate from 46.62.162.196.'
+  version: '2026-09-03'
+  contact:
+    name: ParseForMe
+    url: https://parseforme.com/developers
+    email: support@parseforme.com
+  license:
+    name: Proprietary — governed by the ParseForMe Terms of Service
+    url: https://parseforme.com/legal/terms
+  termsOfService: https://parseforme.com/legal/terms
+servers:
+- url: https://api.parseforme.com
+tags:
+- name: Webhooks
+paths:
+  /v1/webhooks:
+    post:
+      operationId: V1WebhooksController_create
+      parameters: []
+      responses:
+        '201':
+          description: The endpoint plus its raw signing secret, shown once.
+        '400':
+          description: WEBHOOK_URL_REJECTED — the destination failed the egress policy (https, port 443, no userinfo, no IP literal, public name). WEBHOOKS_DISABLED — not configured here.
+        '401':
+          description: Missing or invalid API key / access token.
+        '409':
+          description: WEBHOOK_LIMIT (10 per workspace) or WEBHOOK_URL_EXISTS.
+      security:
+      - bearer: []
+      summary: Register a webhook endpoint — returns the signing secret once
+      tags:
+      - Webhooks
+    get:
+      operationId: V1WebhooksController_list
+      parameters: []
+      responses:
+        '200':
+          description: Each endpoint with a `secretHint` — the last 4 characters.
+        '401':
+          description: Missing or invalid API key / access token.
+      security:
+      - bearer: []
+      summary: Webhook endpoints in this workspace (never the secrets)
+      tags:
+      - Webhooks
+  /v1/webhooks/{id}:
+    delete:
+      operationId: V1WebhooksController_remove
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted.
+        '401':
+          description: Missing or invalid API key / access token.
+        '404':
+          description: No such endpoint in this workspace.
+      security:
+      - bearer: []
+      summary: Delete a webhook endpoint — deliveries stop immediately
+      tags:
+      - Webhooks
+  /v1/webhooks/{id}/rotate:
+    post:
+      operationId: V1WebhooksController_rotate
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The new secret, shown once, plus when the old one expires.
+        '401':
+          description: Missing or invalid API key / access token.
+        '404':
+          description: No such endpoint in this workspace.
+      security:
+      - bearer: []
+      summary: Rotate the signing secret — the old one keeps working for 24 h
+      tags:
+      - Webhooks
+  /v1/webhooks/{id}/test:
+    post:
+      operationId: V1WebhooksController_test
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'Whether the receiver answered 2xx, and with what status (0 = never answered). The payload is a fixture with a nil-UUID document id and `test: true`, never a real document.'
+        '401':
+          description: Missing or invalid API key / access token.
+        '404':
+          description: No such endpoint in this workspace.
+      security:
+      - bearer: []
+      summary: Send a synthetic document.parsed event to this endpoint
+      tags:
+      - Webhooks
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: A `pfm_live_…` workspace key
+externalDocs:
+  description: ParseForMe API reference
+  url: https://parseforme.com/developers

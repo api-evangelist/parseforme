@@ -1,0 +1,24 @@
+{
+  "provider": "parseforme",
+  "sources": [
+    "_original/parseforme-openapi-original.json"
+  ],
+  "outputs": [
+    "parseforme-v1-api-openapi.yml",
+    "parseforme-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "parseforme-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "parseforme-openapi-original.json: declared missing tag: v1",
+    "parseforme-openapi-original.json: declared missing tag: webhooks",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "parseforme-v1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parseforme-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
