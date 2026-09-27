@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: ParseForMe V1 API
+  title: ParseForMe Documents API
   description: 'Upload a document, get structured data back. Authenticate with a workspace API key as `Authorization: Bearer pfm_live_…`. Rate limits are per API key: 60 requests/minute, 10 document creations/minute and 500/day. Over a limit the API answers 429 with `Retry-After` and the `RateLimit` / `RateLimit-Policy` fields — honour them. Webhook deliveries and `sourceUrl` fetches originate from 46.62.162.196.'
   version: '2026-09-03'
   contact:
@@ -14,20 +14,8 @@ info:
 servers:
 - url: https://api.parseforme.com
 tags:
-- name: v1
+- name: Documents
 paths:
-  /v1/me:
-    get:
-      operationId: V1MeController_me
-      parameters: []
-      responses:
-        '200':
-          description: Workspace context for the presented credential.
-      security:
-      - bearer: []
-      summary: The calling key’s workspace, label and token balance
-      tags:
-      - v1
   /v1/documents:
     post:
       operationId: V1DocumentsController_create
@@ -53,7 +41,7 @@ paths:
       - bearer: []
       summary: Upload a document (multipart `file`, or JSON `sourceUrl`) and start parsing it
       tags:
-      - v1
+      - Documents
     get:
       operationId: V1DocumentsController_list
       parameters: []
@@ -66,7 +54,7 @@ paths:
       - bearer: []
       summary: The workspace’s documents, newest first
       tags:
-      - v1
+      - Documents
   /v1/documents/{id}:
     get:
       operationId: V1DocumentsController_get
@@ -87,7 +75,7 @@ paths:
       - bearer: []
       summary: One document, with its extracted fields once it has parsed
       tags:
-      - v1
+      - Documents
   /v1/documents/{id}/export:
     get:
       operationId: V1DocumentsController_exportOne
@@ -108,31 +96,7 @@ paths:
       - bearer: []
       summary: Export one document — JSON with a download URL, or a 302 to it
       tags:
-      - v1
-  /v1/document-types:
-    get:
-      operationId: V1CatalogController_documentTypes
-      parameters: []
-      responses:
-        '200':
-          description: The static field catalogue, from the shared schema registry.
-      security:
-      - bearer: []
-      summary: Every document type and the fields its extraction produces
-      tags:
-      - v1
-  /v1/meta:
-    get:
-      operationId: V1CatalogController_meta
-      parameters: []
-      responses:
-        '200':
-          description: Egress addresses to allowlist, and whether API keys are accepted.
-      security:
-      - bearer: []
-      summary: Integration facts — the addresses our callbacks come from
-      tags:
-      - v1
+      - Documents
 components:
   securitySchemes:
     bearer:

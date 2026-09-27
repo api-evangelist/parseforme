@@ -34,20 +34,6 @@ tags_raw:
 - Webhooks
 - REST
 apis:
-- aid: parseforme:parseforme-v1-api
-  name: ParseForMe V1 API
-  description: The v1 API from ParseForMe — 6 operation(s) for v1.
-  humanURL: https://parseforme.com/developers
-  baseURL: https://api.parseforme.com/v1
-  tags:
-  - v1
-  properties:
-  - type: OpenAPI
-    url: openapi/parseforme-v1-api-openapi.yml
-  - type: Documentation
-    url: https://parseforme.com/developers
-  - type: APIReference
-    url: https://parseforme.com/developers
 - aid: parseforme:parseforme-webhooks-api
   name: ParseForMe Webhooks API
   description: The webhooks API from ParseForMe — 4 operation(s) for webhooks.
@@ -60,6 +46,62 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/parseforme-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://parseforme.com/developers
+  - type: APIReference
+    url: https://parseforme.com/developers
+- aid: parseforme:parseforme-document-types-api
+  name: ParseForMe Document Types API
+  description: The Document Types API from ParseForMe — 1 operation(s) for document types.
+  humanURL: https://parseforme.com/developers
+  baseURL: https://api.parseforme.com/v1
+  tags:
+  - Document Types
+  properties:
+  - type: OpenAPI
+    url: openapi/parseforme-document-types-api-openapi.yml
+  - type: Documentation
+    url: https://parseforme.com/developers
+  - type: APIReference
+    url: https://parseforme.com/developers
+- aid: parseforme:parseforme-documents-api
+  name: ParseForMe Documents API
+  description: The Documents API from ParseForMe — 3 operation(s) for documents.
+  humanURL: https://parseforme.com/developers
+  baseURL: https://api.parseforme.com/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/parseforme-documents-api-openapi.yml
+  - type: Documentation
+    url: https://parseforme.com/developers
+  - type: APIReference
+    url: https://parseforme.com/developers
+- aid: parseforme:parseforme-me-api
+  name: ParseForMe Me API
+  description: The Me API from ParseForMe — 1 operation(s) for me.
+  humanURL: https://parseforme.com/developers
+  baseURL: https://api.parseforme.com/v1
+  tags:
+  - Me
+  properties:
+  - type: OpenAPI
+    url: openapi/parseforme-me-api-openapi.yml
+  - type: Documentation
+    url: https://parseforme.com/developers
+  - type: APIReference
+    url: https://parseforme.com/developers
+- aid: parseforme:parseforme-meta-api
+  name: ParseForMe Meta API
+  description: The Meta API from ParseForMe — 1 operation(s) for meta.
+  humanURL: https://parseforme.com/developers
+  baseURL: https://api.parseforme.com/v1
+  tags:
+  - Meta
+  properties:
+  - type: OpenAPI
+    url: openapi/parseforme-meta-api-openapi.yml
   - type: Documentation
     url: https://parseforme.com/developers
   - type: APIReference

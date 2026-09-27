@@ -1,0 +1,40 @@
+openapi: 3.2.0
+info:
+  title: ParseForMe Meta API
+  description: 'Upload a document, get structured data back. Authenticate with a workspace API key as `Authorization: Bearer pfm_live_…`. Rate limits are per API key: 60 requests/minute, 10 document creations/minute and 500/day. Over a limit the API answers 429 with `Retry-After` and the `RateLimit` / `RateLimit-Policy` fields — honour them. Webhook deliveries and `sourceUrl` fetches originate from 46.62.162.196.'
+  version: '2026-09-03'
+  contact:
+    name: ParseForMe
+    url: https://parseforme.com/developers
+    email: support@parseforme.com
+  license:
+    name: Proprietary — governed by the ParseForMe Terms of Service
+    url: https://parseforme.com/legal/terms
+  termsOfService: https://parseforme.com/legal/terms
+servers:
+- url: https://api.parseforme.com
+tags:
+- name: Meta
+paths:
+  /v1/meta:
+    get:
+      operationId: V1CatalogController_meta
+      parameters: []
+      responses:
+        '200':
+          description: Egress addresses to allowlist, and whether API keys are accepted.
+      security:
+      - bearer: []
+      summary: Integration facts — the addresses our callbacks come from
+      tags:
+      - Meta
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: A `pfm_live_…` workspace key
+externalDocs:
+  description: ParseForMe API reference
+  url: https://parseforme.com/developers

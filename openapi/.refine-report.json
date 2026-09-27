@@ -4,18 +4,34 @@
     "_original/parseforme-openapi-original.json"
   ],
   "outputs": [
-    "parseforme-v1-api-openapi.yml",
+    "parseforme-document-types-api-openapi.yml",
+    "parseforme-documents-api-openapi.yml",
+    "parseforme-me-api-openapi.yml",
+    "parseforme-meta-api-openapi.yml",
     "parseforme-webhooks-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "parseforme-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "parseforme-openapi-original.json: declared missing tag: v1",
+    "parseforme-openapi-original.json: tagged paths GET /v1/me -> Me",
+    "parseforme-openapi-original.json: tagged paths POST /v1/documents -> Documents",
+    "parseforme-openapi-original.json: tagged paths GET /v1/documents -> Documents",
+    "parseforme-openapi-original.json: tagged paths GET /v1/documents/{id} -> Documents",
+    "parseforme-openapi-original.json: tagged paths GET /v1/documents/{id}/export -> Documents",
+    "parseforme-openapi-original.json: tagged paths GET /v1/document-types -> Document Types",
+    "parseforme-openapi-original.json: tagged paths GET /v1/meta -> Meta",
+    "parseforme-openapi-original.json: declared missing tag: Document Types",
+    "parseforme-openapi-original.json: declared missing tag: Documents",
+    "parseforme-openapi-original.json: declared missing tag: Me",
+    "parseforme-openapi-original.json: declared missing tag: Meta",
     "parseforme-openapi-original.json: declared missing tag: webhooks",
-    "apis.yml register: already-registered"
+    "superseded outputs removed: parseforme-v1-api-openapi.yml",
+    "apis.yml register: written (+4 apis, 5 total)"
   ],
   "skipped": [
     "parseforme-v1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
