@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/parseforme/integrations
+- https://n8n.io/integrations/parseforme/
+- https://composio.dev/toolkits/parseforme
+- https://monid.ai/tools/parseforme
+checked:
+- https://composio.dev/toolkits/parseforme
+- https://monid.ai/tools/parseforme
+- https://n8n.io/integrations/parseforme/
+- https://zapier.com/apps/parseforme/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
